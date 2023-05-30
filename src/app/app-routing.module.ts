@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Injectable, NgModule } from '@angular/core';
+import { RouterModule, RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
 
 import { FirstComponent } from './first/first.component';
 import { ChildAComponent } from './first/child-a/child-a.component';
@@ -7,6 +7,23 @@ import { ChildBComponent } from './first/child-b/child-b.component';
 import { SecondComponent } from './second/second.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { Title } from '@angular/platform-browser';
+
+//Membuat template title
+@Injectable({providedIn: 'root'})
+export class TemplatePageTitleStrategy extends TitleStrategy {
+  constructor(private readonly title: Title) {
+    super();
+  }
+
+  override updateTitle(routerState: RouterStateSnapshot) {
+    const title = this.buildTitle(routerState);
+    if (title !== undefined) {
+      this.title.setTitle(title + ' | Belajar Angular Route');
+    }
+  }
+}
+
 
 const routes: Routes = [
   {
@@ -31,6 +48,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    {provide: TitleStrategy, useClass: TemplatePageTitleStrategy},
+  ]
 })
 export class AppRoutingModule { }
