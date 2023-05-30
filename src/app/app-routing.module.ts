@@ -11,6 +11,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 const routes: Routes = [
   {
     path: 'first-component',
+    title: 'First Component',
     component: FirstComponent, // this is the component with the <router-outlet> in the template
     children: [
       {
@@ -23,9 +24,9 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'second-component', component: SecondComponent },
-  { path: '', component: HomeComponent },
-  { path: '**', component: NotFoundComponent }
+  { path: 'second-component', title: 'Second Component', component: SecondComponent },
+  { path: '', title: 'Home', component: HomeComponent },
+  { path: '**', title: 'Page Not Found', component: NotFoundComponent }
 ];
 
 @NgModule({
