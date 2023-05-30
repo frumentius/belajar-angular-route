@@ -1,5 +1,6 @@
 import { Injectable, NgModule } from '@angular/core';
-import { RouterModule, RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
+import { ResolveFn, RouterModule, RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { FirstComponent } from './first/first.component';
 import { ChildAComponent } from './first/child-a/child-a.component';
@@ -7,9 +8,8 @@ import { ChildBComponent } from './first/child-b/child-b.component';
 import { SecondComponent } from './second/second.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { Title } from '@angular/platform-browser';
 
-//Membuat template title
+//Membuat template title ?
 @Injectable({providedIn: 'root'})
 export class TemplatePageTitleStrategy extends TitleStrategy {
   constructor(private readonly title: Title) {
@@ -24,6 +24,8 @@ export class TemplatePageTitleStrategy extends TitleStrategy {
   }
 }
 
+//Dynamic title value ?
+const resolvedChildATitle: ResolveFn<string> = () => Promise.resolve('child a');
 
 const routes: Routes = [
   {
@@ -33,6 +35,7 @@ const routes: Routes = [
     children: [
       {
         path: 'child-a', // child route path
+        title: resolvedChildATitle,
         component: ChildAComponent, // child route component that the router renders
       },
       {
@@ -41,7 +44,11 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'second-component', title: 'Second Component', component: SecondComponent },
+  {
+    path: 'second-component',
+    title: 'Second Component',
+    component: SecondComponent
+  },
   { path: '', title: 'Home', component: HomeComponent },
   { path: '**', title: 'Page Not Found', component: NotFoundComponent }
 ];
