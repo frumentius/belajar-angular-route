@@ -54,6 +54,7 @@ const routes: Routes = [
     title: 'Second Component',
     component: SecondComponent
   },
+  { path: 'lazy-modul', loadChildren: () => import('./lazy-modul/lazy-modul.module').then(m => m.LazyModulModule) },
   { path: '', title: 'Home', component: HomeComponent },
   { path: '**', title: 'Page Not Found', component: NotFoundComponent }
 ];
