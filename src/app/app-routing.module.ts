@@ -6,6 +6,7 @@ import { FirstComponent } from './first/first.component';
 import { ChildAComponent } from './first/child-a/child-a.component';
 import { ChildBComponent } from './first/child-b/child-b.component';
 import { SecondComponent } from './second/second.component';
+import { DetailComponent } from './second/detail/detail.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
@@ -25,24 +26,28 @@ export class TemplatePageTitleStrategy extends TitleStrategy {
 }
 
 //Dynamic title value ?
-const resolvedChildATitle: ResolveFn<string> = () => Promise.resolve('child a');
+const resolvedChildATitle: ResolveFn<string> = () => Promise.resolve('Child A - First Component');
 
 const routes: Routes = [
   {
     path: 'first-component',
     title: 'First Component',
-    component: FirstComponent, // this is the component with the <router-outlet> in the template
-    children: [
+    component: FirstComponent,
+    children: [ //child route
       {
-        path: 'child-a', // child route path
+        path: 'child-a',
         title: resolvedChildATitle,
-        component: ChildAComponent, // child route component that the router renders
+        component: ChildAComponent,
       },
       {
         path: 'child-b',
-        component: ChildBComponent, // another child route component that the router renders
+        component: ChildBComponent,
       },
-    ],
+    ]
+  },
+  {
+    path: 'second-component/:id/:name',
+    component: DetailComponent,
   },
   {
     path: 'second-component',
