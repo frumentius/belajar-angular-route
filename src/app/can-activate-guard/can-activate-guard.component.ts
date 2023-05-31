@@ -31,7 +31,6 @@ export class CanActivateGuardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.activatedroute.paramMap.subscribe((params) => {
-      //console.log(params);
       let tempVar: null | string = params.get('paramId');
       if (tempVar !== null) this.paramId = parseInt(tempVar);
       else this.paramId = null;
