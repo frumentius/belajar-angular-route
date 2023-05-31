@@ -10,8 +10,10 @@ import { DetailComponent } from './second/detail/detail.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
+import { checkParamGuard } from './can-activate-guard/guard/check-param.guard';
+
 //Membuat template title ?
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class TemplatePageTitleStrategy extends TitleStrategy {
   constructor(private readonly title: Title) {
     super();
@@ -55,6 +57,11 @@ const routes: Routes = [
     component: SecondComponent
   },
   { path: 'lazy-modul', loadChildren: () => import('./lazy-modul/lazy-modul.module').then(m => m.LazyModulModule) },
+  {
+    path: 'guarded/:paramId/:paramTitle',
+    canActivate: [checkParamGuard],
+    loadChildren: () => import('./can-activate-guard/can-activate-guard.module').then(m => m.CanActivateGuardModule)
+  },
   { path: '', title: 'Home', component: HomeComponent },
   { path: '**', title: 'Page Not Found', component: NotFoundComponent }
 ];
@@ -63,7 +70,7 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers: [
-    {provide: TitleStrategy, useClass: TemplatePageTitleStrategy},
+    { provide: TitleStrategy, useClass: TemplatePageTitleStrategy },
   ]
 })
 export class AppRoutingModule { }
