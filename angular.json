@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "belajar-bootstrap-route": {
+    "belajar-angular-route": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/belajar-bootstrap-route",
+            "outputPath": "dist/belajar-angular-route",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "belajar-bootstrap-route:build:production"
+              "browserTarget": "belajar-angular-route:build:production"
             },
             "development": {
-              "browserTarget": "belajar-bootstrap-route:build:development"
+              "browserTarget": "belajar-angular-route:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "belajar-bootstrap-route:build"
+            "browserTarget": "belajar-angular-route:build"
           }
         },
         "test": {
